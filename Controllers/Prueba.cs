@@ -26,6 +26,9 @@ namespace cp202201_voto_MVC_v1.Controllers
 // im happy
 
 
+//aaaaa
+
+
 
 
 // ---------- el nombre de la sister de alvaro es : MARTINNNNN
@@ -41,3 +44,7 @@ namespace cp202201_voto_MVC_v1.Controllers
 
 
 //aea
+
+//plmi
+
+//lololo
