@@ -18,6 +18,9 @@ namespace cp202201_voto_MVC_v1.Controllers
         //listos yaaaa.mp4
 
 
+        //mis hibridos gang
+
+
     }
 }
 
