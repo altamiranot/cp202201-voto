@@ -8,5 +8,13 @@ namespace cp202201_voto_MVC_v1.Controllers
         {
             return View();
         }
+
+
+
+        //RAAAAA ya me supere como faraon
+
+        //Se hizo cambios
+
+
     }
 }
