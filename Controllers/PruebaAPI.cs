@@ -7,5 +7,6 @@ namespace cp202201_voto_API_v1.Controllers
     [ApiController]
     public class PruebaAPI : ControllerBase
     {
+        //Hola mundo
     }
 }
