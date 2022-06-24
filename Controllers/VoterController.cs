@@ -8,5 +8,20 @@ namespace cp202201_voto_MVC_v1.Controllers
         {
             return View();
         }
+        
+        public IActionResult Results()
+        {
+            return View();
+        }
+
+        public IActionResult newVote()
+        {
+            return View();
+        }
+
+        public IActionResult createPeriod()
+        {
+            return View();
+        }
     }
 }
