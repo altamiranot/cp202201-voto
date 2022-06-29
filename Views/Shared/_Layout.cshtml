@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - cp202201_voto_MVC_v1</title>
+    <title>@ViewData["Title"] - Sistema Votación</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/cp202201_voto_MVC_v1.styles.css" asp-append-version="true" />
@@ -49,21 +49,22 @@
     </header>
     <div class="container">
         <main role="main" class="d-flex flex-column min-vh-100 pb-3">
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
             @RenderBody()
         </main>
     </div>
 
     <footer class="mt-auto border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Sistema de votación - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Sistema de votación - <a asp-area="" asp-controller="Voter" asp-action="Index">Inicio</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-   
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
