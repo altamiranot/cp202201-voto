@@ -7,4 +7,11 @@
     <RootNamespace>cp202201_voto_MVC_v1</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\Assets\Voter\results.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
