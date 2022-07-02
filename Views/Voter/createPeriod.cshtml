@@ -3,7 +3,7 @@
 *@
 @{
 }
-<<div class="row d-flex flex-row mt-5"> 
+<div class="row d-flex flex-row mt-5"> 
 
     <div class="col-lg-1 "> </div>
         <div class="col-lg-5 card text-dark bg-light mb-3 p-0">
@@ -59,7 +59,7 @@
     <div class="col-lg-1 "> </div>
         <div class="col-lg-5 card text-dark bg-light mb-3 p-0">
         <div class="card-header fs-5 fw-bold">Candidatos</div>
-        <div class="card-body">
+        <div class="card-body" id="candidateForm">
             <div class="row pb-4">
                 <div class="form-row">
                     <label for="txtNameCandidate">Nombre</label>
@@ -68,14 +68,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row pb-4">
-                <div class="form-row">
-                    <label for="txtDNICandidate">DNI</label>
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control" id="txtDNICandidate" placeholder="Ingrese DNI">
-                    </div>
-                </div>
-            </div>
+            
             <div class="row pb-4">
                 <div class="form-row">
                     <label for="txtGroupCandidate">Partido</label>
@@ -87,15 +80,19 @@
             <div class="form-group">
                 <label for="imgGroupFile">Imagen</label><br>
 
-                <input type="file" class="form-control-file" id="imgGroupFile">
+                <input type="file" class="form-control-file" id="imgGroupFile" accept=".png, .jpg, .jpeg"> 
+                <img id="blah" src="#" alt="Ingresa imagen" class="img-thumbnail"  />
             </div>
         </div>
+        <div class="card-body" id="candidatePreview" style="display:none;">
+            
+        </div>
         <div class="row">
-            <div class="text-end col pe-4 pb-3"><div class="btn btn-primary btn-md" type="submit" id="btnAddCandidate">Agregar</div></div>
+            <div class="text-end col pe-4 pb-3"><div class="btn btn-primary btn-md" type="submit" id="btnAddCandidate">Confirmar</div><div class="btn btn-primary btn-md" type="submit" id="btnNewCandidate" style="display:none;">Agregar</div></div>
         </div>
     </div>
 
-    <div class="text-end col pe-4 pb-3" style=""><div class="btn btn-primary btn-md" type="submit" id="btnCreateOrder">Crear</div></div>
+    <div class="text-end col pe-4 pb-3" style=""><div class="btn btn-primary btn-md disabled" type="submit" id="btnCreateOrder">Crear</div></div>
 
 </div>
 
@@ -137,24 +134,90 @@
     }
     var candidateForm = {
         name: "",
-        dni:"",
         group:"",
         image: {},
+        tempImg:"",
         config: {
             txtName:"#txtNameCandidate",
             txtDni: "#txtDNICandidate",
             txtGroup: "#txtGroupCandidate",
-            inpImage:"#imgGroupFile"
+            inpImage:"#imgGroupFile",
+            imgField:"#blah"
         },
         getFromContainer: function(){
 			this.name = $(this.config.txtName).val();
-            this.dni = $(this.config.txtDni).val();
 			this.group =  $(this.config.txtGroup).val();
 			this.image = $(this.config.inpImage).val();
 		},
+        preview: function() {
+            candidateForm.tempImg = $("#blah").attr("src");
+            $("#candidatePreview").show();
+            $("#btnNewCandidate").show();
+            $("#candidateForm").hide();
+            $("#btnAddCandidate").hide();
+        },
+        newCandidate: function() {
+            $("#candidatePreview").hide();
+            $("#btnNewCandidate").hide();
+            $("#candidateForm").show();
+            $("#btnAddCandidate").show();
+        },
+        getImage: function() { 
+            var images = $(this.config.imgField)
+			var image, arr=[];
+			  for(var i=0; i<images.length;i++){
+			    image = window.getComputedStyle(images[i]).backgroundImage;
+			    arr.push(image.substr(5, image.length-7));
+			  } 
+			  
+			  if(arr[0]!=""){
+				  const a = arr[0]; 
+			  }
+            return arr[0]
+        },
+        getHTML: function() { 
+            let $row = $('<div></div>');
+			$row.append('<div class="col-5">'
+                    +'<p class="card-text fs-4">'+this.name+'</p>'
+                    +'<p class="card-text fs-6 fw-light">'+this.group+'</p>'
+                +'</div>')
+		    return $row.html()
+        },
+        renderNew: function() {
+            let html = this.getHTML();
+		    $("#candidatePreview").append('<div class="row pb-4"><div class="col-3"><img src="'+this.tempImg+'" class="img-thumbnail"/>'
+              +'</div>'+html+'<div class="col-4 text-end pt-3"><i class="bi bi-trash fs-3 text-danger"></i></div></div>')
+        },
+        clear: function() {
+            $(this.config.txtName).val("");
+            $(this.config.txtGroup).val("");
+            $(this.config.imgField).val("");
+            $("#blah").attr("src", "");
+        }
     }
 
     //Listeners
+    $("#btnAddCandidate").on("click",function(e){e.preventDefault()
+        candidateForm.getFromContainer();
+        console.log(candidateForm);
+        candidateForm.preview()
+        candidateForm.renderNew();
+    });
+    $("#btnNewCandidate").on("click", function(e) {
+        e.preventDefault()
+        candidateForm.newCandidate();
+        candidateForm.clear();
+    });
+    $("#imgGroupFile").on("change", function(e) {
+        e.preventDefault()
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $("#blah").attr('src', e.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+        
+    });
+
 
 
 
