@@ -23,5 +23,7 @@ namespace cp202201_voto_MVC_v1.Controllers
         {
             return View();
         }
+
+
     }
 }
