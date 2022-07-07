@@ -9,44 +9,7 @@ namespace cp202201_voto_MVC_v1.Controllers
             return View();
         }
 
-        //alvaro rosqueteeeeeeee
-
-        //RAAAAA ya me supere como faraon
-
-        //Se hizo cambios
-
-        //listos yaaaa.mp4
-
-        //mis hibridos gang
+        
 
     }
 }
-
-
-// im happy
-
-
-//aaaaa
-
-
-
-
-// ---------- el nombre de la sister de alvaro es : MARTINNNNN
-
-
-
-//CAmbio de alvaro 1:41om
-
-
-// QUE PASA CAUSA GAAAAAAAAAA
-
-
-
-
-//aea
-
-//Cambio 1:55pm
-
-//comentario x
-
-//xlxlxl
