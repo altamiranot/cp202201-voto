@@ -3,11 +3,11 @@
 *@
 @{
 }
-<div class="row d-flex flex-row mt-5"> 
+<div class="row d-flex flex-row mt-5">
 
     <div class="col-lg-1 "> </div>
-        <div class="col-lg-5 card text-dark bg-light mb-3 p-0">
-        
+    <div class="col-lg-5 card text-dark bg-light mb-3 p-0">
+
         <div class="card-body">
             <div class="row pb-4">
                 <div class="form-row">
@@ -26,38 +26,40 @@
                 </div>
             </div>
             <div class="row ">
-                <label class="col-md-6 pb-4" for="selDateStart">Inicio de la convocatoria:
+                <label class="col-md-6 pb-4" for="selDateStart">
+                    Inicio de la convocatoria:
                     <input type="date" name="selDateStart" class="form-control" id="selDateStart">
                 </label>
-                <label class="col-md-6 pb-4" for="selDateEnd">Final de la convocatoria:<input type="date" name="selDateEnd" class="form-control" id="selDateEnd">
+                <label class="col-md-6 pb-4" for="selDateEnd">
+                    Final de la convocatoria:<input type="date" name="selDateEnd" class="form-control" id="selDateEnd">
 
                 </label>
-                </div>
+            </div>
             <div class="form-group row">
                 <div class="col-sm-10">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="cbBlankVote">
-                    <label class="form-check-label" for="cbBlankVote">
-                        Permitir voto en blanco
-                    </label>
+                        <label class="form-check-label" for="cbBlankVote">
+                            Permitir voto en blanco
+                        </label>
                     </div>
                 </div>
                 <div class="col-sm-10">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="cbPresential">
-                    <label class="form-check-label" for="cbPresential">
-                        Admitir voto presencial
-                    </label>
+                        <label class="form-check-label" for="cbPresential">
+                            Admitir voto presencial
+                        </label>
                     </div>
                 </div>
             </div>
         </div>
-    
+
     </div>
 
 
     <div class="col-lg-1 "> </div>
-        <div class="col-lg-5 card text-dark bg-light mb-3 p-0">
+    <div class="col-lg-5 card text-dark bg-light mb-3 p-0">
         <div class="card-header fs-5 fw-bold">Candidatos</div>
         <div class="card-body" id="candidateForm">
             <div class="row pb-4">
@@ -68,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row pb-4">
                 <div class="form-row">
                     <label for="txtGroupCandidate">Partido</label>
@@ -80,75 +82,108 @@
             <div class="form-group">
                 <label for="imgGroupFile">Imagen</label><br>
 
-                <input type="file" class="form-control-file" id="imgGroupFile" accept=".png, .jpg, .jpeg"> 
-                <img id="blah" src="#" alt="Ingresa imagen" class="img-thumbnail"  />
+                <input type="file" class="form-control-file" id="imgGroupFile" accept=".png, .jpg, .jpeg">
+                <img id="blah" src="#" alt="Ingresa imagen" class="img-thumbnail" />
             </div>
         </div>
         <div class="card-body" id="candidatePreview" style="display:none;">
-            
         </div>
         <div class="row">
             <div class="text-end col pe-4 pb-3"><div class="btn btn-primary btn-md" type="submit" id="btnAddCandidate">Confirmar</div><div class="btn btn-primary btn-md" type="submit" id="btnNewCandidate" style="display:none;">Agregar</div></div>
         </div>
     </div>
 
-    <div class="text-end col pe-4 pb-3" style=""><div class="btn btn-primary btn-md disabled" type="submit" id="btnCreateOrder">Crear</div></div>
+    <div class="text-end col pe-4 pb-3" style=""><div class="btn btn-primary btn-md disabled" type="submit" id="btnCreatePeriod">Crear</div></div>
 
 </div>
 
- <script>
+<script>
     var toolbox = {
-        tomorrowDate: function (el){
-		let now = new Date(new Date().getTime() + 86400000)
-		let day = ("0" + now.getDate()).slice(-2);
-		let month = ("0" + (now.getMonth() + 1)).slice(-2);
+        tomorrowDate: function(el) {
+            let now = new Date(new Date().getTime() + 86400000)
+            let day = ("0" + now.getDate()).slice(-2);
+            let month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-		let tomorrow = now.getFullYear()+"-"+(month)+"-"+(day) ;
+            let tomorrow = now.getFullYear() + "-" + (month) + "-" + (day);
 
-		$(el).val(tomorrow);
-	    },
+            $(el).val(tomorrow);
+        },
     }
+    var objPeriod = {
+        period: {
+            period: this.period,
+            role: this.role,
+            dateStart: this.startDate,
+            dateEnd: this.endDate,
+            blankVote: this.blank,
+            presential: this.presential
+        },
+        candidates: [],
+        newObjPeriod: function() {
+            this.periodForm.periodTemp();
+            objTemp = {
+                desc: this.period.desc,
+                descRole: this.period.descRole,
+                dateStart: this.period.dateStart,
+                dateEnd: this.period.dateEnd,
+                blankVote: this.period.blankVote,
+                presential: this.period.presential,
+            }
+            
+            return objTemp;
+        }
+    }
+
+
     var periodForm = {
         period: "",
         role: "",
         startDate: "",
         endDate: "",
         blank: false,
-        presential:false,
-        config: { 
-            txtPeriod:"#txtDescPeriod",
+        presential: false,
+        config: {
+            txtPeriod: "#txtDescPeriod",
             txtRole: "#txtDescRole",
             selStartDate: "#selDateStart",
-            selEndDate:"#selDateEnd",
-            cbBlank:"#cbBlankVote",
-            cbPresential:"#cbPresential"
+            selEndDate: "#selDateEnd",
+            cbBlank: "#cbBlankVote",
+            cbPresential: "#cbPresential"
         },
-        getFromContainer: function(){
-			this.period = $(this.config.txtPeriod).val();
+        getFromContainer: function() {
+            this.period = $(this.config.txtPeriod).val();
             this.role = $(this.config.txtRole).val();
-			this.startDate =  $(this.config.selStartDate).val();
-			this.endDate = $(this.config.selEndDate).val();
-			this.blank =  $(this.config.cbBlank).is(':checked');
-			this.presential=$(this.config.cbPresential).is(':checked');
-		},
+            this.startDate = $(this.config.selStartDate).val();
+            this.endDate = $(this.config.selEndDate).val();
+            this.blank = $(this.config.cbBlank).is(':checked');
+            this.presential = $(this.config.cbPresential).is(':checked');
+        },
+        periodTemp: function() {
+            tempPeriod: {
+                period: this.period
+                
+              
+            }
+            return tempPeriod;
+        }
     }
     var candidateForm = {
         name: "",
-        group:"",
+        group: "",
         image: {},
-        tempImg:"",
+        tempImg: "",
         config: {
-            txtName:"#txtNameCandidate",
+            txtName: "#txtNameCandidate",
             txtDni: "#txtDNICandidate",
             txtGroup: "#txtGroupCandidate",
-            inpImage:"#imgGroupFile",
-            imgField:"#blah"
+            inpImage: "#imgGroupFile",
+            imgField: "#blah"
         },
-        getFromContainer: function(){
-			this.name = $(this.config.txtName).val();
-			this.group =  $(this.config.txtGroup).val();
-			this.image = $(this.config.inpImage).val();
-		},
+        getFromContainer: function() {
+            this.name = $(this.config.txtName).val();
+            this.group = $(this.config.txtGroup).val();
+            this.image = $(this.config.inpImage).val();
+        },
         preview: function() {
             candidateForm.tempImg = $("#blah").attr("src");
             $("#candidatePreview").show();
@@ -162,46 +197,59 @@
             $("#candidateForm").show();
             $("#btnAddCandidate").show();
         },
-        getImage: function() { 
+        getImage: function() {
             var images = $(this.config.imgField)
-			var image, arr=[];
-			  for(var i=0; i<images.length;i++){
-			    image = window.getComputedStyle(images[i]).backgroundImage;
-			    arr.push(image.substr(5, image.length-7));
-			  } 
-			  
-			  if(arr[0]!=""){
-				  const a = arr[0]; 
-			  }
+            var image, arr = [];
+            for (var i = 0; i < images.length; i++) {
+                image = window.getComputedStyle(images[i]).backgroundImage;
+                arr.push(image.substr(5, image.length - 7));
+            }
+
+            if (arr[0] != "") {
+                const a = arr[0];
+            }
             return arr[0]
         },
-        getHTML: function() { 
+        getHTML: function() {
             let $row = $('<div></div>');
-			$row.append('<div class="col-5">'
-                    +'<p class="card-text fs-4">'+this.name+'</p>'
-                    +'<p class="card-text fs-6 fw-light">'+this.group+'</p>'
-                +'</div>')
-		    return $row.html()
+            $row.append('<div class="col-5">'
+                + '<p class="card-text fs-4">' + this.name + '</p>'
+                + '<p class="card-text fs-6 fw-light">' + this.group + '</p>'
+                + '</div>')
+            return $row.html()
         },
         renderNew: function() {
             let html = this.getHTML();
-		    $("#candidatePreview").append('<div class="row pb-4"><div class="col-3"><img src="'+this.tempImg+'" class="img-thumbnail"/>'
-              +'</div>'+html+'<div class="col-4 text-end pt-3"><i class="bi bi-trash fs-3 text-danger"></i></div></div>')
+            $("#candidatePreview").append('<div class="row pb-4"><div class="col-3"><img src="' + this.tempImg + '" class="img-thumbnail"/>'
+                + '</div>' + html + '<div class="col-4 text-end pt-3"><i class="bi bi-trash fs-3 text-danger"></i></div></div>')
         },
         clear: function() {
             $(this.config.txtName).val("");
             $(this.config.txtGroup).val("");
             $(this.config.imgField).val("");
             $("#blah").attr("src", "");
+        },
+        getCandidate: function() {
+            let candidate = {
+                name: this.name,
+                group: this.group,
+                image: this.getImage()
+            }
+            return candidate;
         }
     }
 
     //Listeners
-    $("#btnAddCandidate").on("click",function(e){e.preventDefault()
+    $("#btnAddCandidate").on("click", function(e) {
+        e.preventDefault()
         candidateForm.getFromContainer();
         console.log(candidateForm);
         candidateForm.preview()
         candidateForm.renderNew();
+        objPeriod.candidates.push(candidateForm.tempCandidate);
+
+        //If are minimum 2 candidates
+        id(objPeriod.candidates.length)
     });
     $("#btnNewCandidate").on("click", function(e) {
         e.preventDefault()
@@ -215,10 +263,16 @@
             $("#blah").attr('src', e.target.result);
         }
         reader.readAsDataURL(e.target.files[0]);
+    });
+
+    $("#btnAddPeriod").on("click", function(e) {
+        e.preventDefault()
         
+        periodForm.getFromContainer();
+        console.log(periodForm);
+        objPeriod.period = periodForm.periodTemp();
+        console.log(objPeriod);
     });
 
 
-
-
- </script>
+</script>
