@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using cp202201_voto_MVC_v1.Service;
+using Microsoft.AspNetCore.Mvc;
 
 namespace cp202201_voto_MVC_v1.Controllers
 {
     public class SecurityController : Controller
     {
-        public IActionResult signUp()
+        public async Task <IActionResult> signUp()
         {
-            return View();
+            var usuarios = await UsuarioService.Post();
+
+            return View(usuarios);
         }
 
         public IActionResult login()
