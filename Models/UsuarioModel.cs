@@ -1,4 +1,4 @@
-﻿namespace cp202201_voto_MVC_v1.Models
+﻿    namespace cp202201_voto_MVC_v1.Models
 {
     public class UsuarioModel
     {
